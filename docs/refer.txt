@@ -1,0 +1,10 @@
+1) 강의 노트 및 소스 코드
+https://gitlab.com/jongwons.choi/spring-boot-security-lecture
+https://github.com/jongwon/sp-fastcampus-spring-sec
+
+?) 하위 폴더를 추가할 때?
+: component, server, web 폴더에 새로운 폴더를 생성하고 Gradle 탭에서
+  Reimport All Gradle Projects 버튼을 누른다.
+
+?) 소스 코드 변경 시, 자동 재시작?
+: Run/Debug Configuration에서 Update classes and resources을 2개 활성화한다.

@@ -1,0 +1,84 @@
+buildscript {
+    // spring, boot, lombok 변수를 설정한다. (반복적으로 사용하므로)
+    ext {
+        spring = "2.4.1"
+        boot = "org.springframework.boot"
+        lombok = "org.projectlombok:lombok"
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("$boot:spring-boot-gradle-plugin:$spring")
+    }
+}
+
+// 모든 프로젝트에서 공통적으로 사용할 group과 version을 명시한다.
+allprojects {
+    group = "com.sp.fc"
+    version = "1.0.0"
+}
+
+// 하위 프로젝트
+subprojects {
+    // java 플러그인을 명시한다. (Java와 관련한 Gradle 태스크를 추가한다.)
+    apply plugin: "java"
+    // spring boot 플러그인을 명시한다. (Spring Boot와 관련한 Gradle 태스크를 추가한다.)
+    apply plugin: boot
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: "idea"
+
+    repositories {
+        mavenCentral()
+    }
+
+    configurations {
+        // developmentOnly는 Part[1]의 3-1부터 활성화한다.
+        developmentOnly
+        runtimeClasspath {
+            extendsFrom developmentOnly
+        }
+    }
+
+    dependencies {
+        // developmentOnly는 Part[1]의 3-1부터 활성화한다.
+        developmentOnly("$boot:spring-boot-devtools")
+        implementation("$boot:spring-boot-starter-security")
+        implementation("com.fasterxml.jackson.core:jackson-annotations")
+        testImplementation("$boot:spring-boot-starter-test")
+
+        compileOnly(lombok)
+        testCompileOnly(lombok)
+        annotationProcessor(lombok)
+        testAnnotationProcessor(lombok)
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+["component", "web"].each {
+    def subProjectDir = new File(projectDir, it)
+    subProjectDir.eachDir { dir ->
+        def projectName = ":${it}-${dir.name}"
+        project(projectName) {
+            // component, web 폴더는 bootJar 태스크를 비활성화한다.
+            // (부트스트랩 클래스를 생성하지 않으므로)
+            bootJar.enabled(false)
+            jar.enabled(true)
+        }
+    }
+}
+["server"].each {
+    def subProjectDir = new File(projectDir, it)
+    subProjectDir.eachDir { dir ->
+        def projectName = ":${it}-${dir.name}"
+        project(projectName) {
+            // 기본 값이 true이므로 별도로 명시하지 않아도 된다.
+            // bootJar.enabled(true)
+        }
+    }
+}
+
+help.enabled(false)

@@ -1,0 +1,6 @@
+dependencies {
+    implementation("$boot:spring-boot-starter-web")
+
+    // 하위 프로젝트를 참조하도록 명시한다.
+    compile project(":component-common-utils")
+}

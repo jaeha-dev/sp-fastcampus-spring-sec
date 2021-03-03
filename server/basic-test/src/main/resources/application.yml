@@ -1,0 +1,11 @@
+server:
+  port: 9050
+
+spring:
+  security:
+    user:
+      # user1 / 12345 계정을 추가한다.
+      # (SecurityConfig 클래스에 인증 계정을 추가했으므로 더이상 사용할 수 없다.)
+      name: user1
+      password: 12345
+      roles: USER

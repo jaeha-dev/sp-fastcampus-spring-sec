@@ -1,0 +1,9 @@
+1) Gradle 다운로드
+: binary-only 버전을 압축 해제한 후, 아래의 경로로 Gradle 버전을 수정한다.
+(Build, Execution, Deployment -> Build Tools -> Gradle -> Use Gradle from)
+: 2021년 3월 2일 기준, 6.8.3 버전을 사용한다.
+
+: 참고
+(https://gradle.org/releases)
+(https://sean-ma.tistory.com/33)
+
