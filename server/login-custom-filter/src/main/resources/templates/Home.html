@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
@@ -10,27 +11,27 @@
 <body>
 <div class="container center-contents">
   <div class="row">
-    <h1 class="title display-5"> 메인 페이지 </h1>
+    <h1 class="title display-5"> 학생 / 선생님 메인 페이지 </h1>
   </div>
-  <div class="links" sec:authorize="!authenticated">
-    <div class="link">
+  <div class="links">
+    <div class="link" sec:authorize="!authenticated">
       <a th:href="@{/login}"> 로그인 </a>
     </div>
-    <!-- <div class="link"> -->
-    <!--   <a th:href="@{/login-error}"> 로그인 에러 </a> -->
-    <!-- </div> -->
-    <!-- <div class="link"> -->
-    <!--   <a th:href="@{/access-denied}"> 접근 에러 </a> -->
-    <!-- </div> -->
+<!--    <div class="link">-->
+<!--      <a th:href="@{/login-error}"> 로그인 에러 </a>-->
+<!--    </div>-->
+<!--    <div class="link">-->
+<!--      <a th:href="@{/access-denied}"> 접근 에러 </a>-->
+<!--    </div>-->
     <div class="link" sec:authorize="authenticated">
-      <a th:href="@{/user-page}"> 유저 페이지 </a>
+      <a th:href="@{/students/main}"> 학생 페이지 </a>
     </div>
     <div class="link" sec:authorize="authenticated">
-      <a th:href="@{/admin-page}"> 관리자 페이지 </a>
+      <a th:href="@{/teachers/main}"> 선생님 페이지 </a>
     </div>
     <div class="link" sec:authorize="authenticated">
       <form th:action="@{/logout}" method="post">
-        <button class="btn btn-info" type="submit">로그아웃</button>
+        <button type="submit"> 로그아웃 </button>
       </form>
     </div>
   </div>
